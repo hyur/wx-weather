@@ -1,0 +1,27 @@
+.weather-wrapper{
+  padding-top:174rpx;
+  padding-bottom: 250rpx;
+  background-image: -webkit-linear-gradient(-90deg,#3bbcff,#4af4ff);
+  position:relative;
+  z-index:-2;
+}
+.temp{
+  text-align: center;
+  font-size: 200rpx;
+  line-height: 280rpx;
+  color: rgba(255,255,255,0.9);
+  opacity: 0.8;
+}
+.weather{
+  font-size: 40rpx;
+  line-height: 56rpx;
+  text-align: center;
+  color: rgba(255,255,255,0.9);
+}
+.weather-bg{
+  position: absolute;
+  left:0;
+  bottom:0;
+  width:100%;
+  z-index: -1;
+}
