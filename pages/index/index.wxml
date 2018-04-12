@@ -1,0 +1,5 @@
+<view class = "weather-wrapper">
+<view class = "temp">{{nowTemp}}℃</view>
+<view class = "weather">{{nowWeather}}</view>
+<image class = "weather-bg" src = "{{nowWeatherBg}}" mode = "scrollToFill"></image>
+</view>
