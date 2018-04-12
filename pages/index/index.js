@@ -19,7 +19,9 @@ Page({
     nowTemp:2,
     nowWeather:'',
     nowWeatherBg:'',
-    forecast:''
+    forecast:'',
+    todayDate:'',
+    todayTemp:''
   },
   // 下拉刷新
   onPullDownRefresh(){
@@ -42,7 +44,8 @@ Page({
       success: res => {
         let result = res.data.result;
         this.setNow(result);
-        this.setHourly(result);   
+        this.setHourly(result);  
+        this.setToday(result); 
       },
       complete:()=>{
         // 如果存在回调函数则执行，不存在则不执行
@@ -78,5 +81,18 @@ Page({
     this.setData({
       forecast
     })
+  },
+  // 设置今天
+  setToday(result){
+    let date = new Date();
+    this.setData({
+      todayDate:`${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}今天`,
+      todayTemp: `${result.today.minTemp}°-${result.today.maxTemp}°`
+    })
+  },
+  onTapDayWeather(){
+   wx.navigateTo({
+     url: '/pages/list/list',
+   })
   }
 })
