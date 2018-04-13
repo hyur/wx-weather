@@ -90,10 +90,10 @@
   margin-top:50rpx;
 }
 .forecast_item_temp{
-  margin-top:45rpx;
-  font-size: 40rpx;
+  margin-top:42rpx;
+  font-size: 35rpx;
   line-height: 52rpx;
-  opacity: 0.7;
+  opacity: 0.6;
 }
 /*今日天气 */
 .day-weather{

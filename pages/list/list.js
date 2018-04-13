@@ -13,30 +13,11 @@ Page({
     city:'上海市'
   },
   onLoad(options){
-    console.log('onLoad');
     this.setData({
       city:options.city
     })
     this.getWeekWeather();
   },
-  onShow: function () { 
-    console.log('onShow');
-  }, 
-  onReady: function () {
-    console.log('onReady');
-   }, 
-  onHide: function () {
-    console.log('onHide');
-   }, 
-  onUnload: function () { 
-    console.log('onUnload');
-  }, 
-  onLaunch: function () { 
-    console.log('onLaunch');
-  }, 
-  onError: function () { 
-    console.log('onError');
-  }, 
   onPullDownRefrush(){
     this.getWeekWeather(()=>{
       wx.stopPullDownRefresh();

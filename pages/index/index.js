@@ -20,9 +20,6 @@ var QQMapWX = require('../../libs/qqmap-wx-jssdk.js');
 const UNPROMPTED =0;
 const UNAUTHORIZED = 1;
 const AUTHORIZED  = 2;
-const UNPROMPTED_TIPS  = "点击获取当前位置";
-const UNAUTHORIZED_TIPS  = "点击开启位置权限";
-const AUTHORIZED_TIPS  = "";
 
 Page({
   data:{
@@ -33,54 +30,33 @@ Page({
     todayDate:'',
     todayTemp:'',
     city:'上海市',
-    locationAuthType: UNPROMPTED,
-    locationTips: UNPROMPTED_TIPS
-  },
-  // 下拉刷新
-  onPullDownRefresh(){
-    this.getNow(()=>{
-      wx.stopPullDownRefresh();
-    });
+    locationAuthType: UNPROMPTED
   },
   onLoad(){
-    console.log('onLoad')
     // 实例化API核心类
     this.qqmapsdk = new QQMapWX({
        key:'ODEBZ-L24RS-MRQOR-6SFSX-VRBAO-R5FRU'
      });
-    //  获取当前城市天气
-    this.getNow();
-  },
-  onReady: function () {
-    console.log('onReady');
-  },
-  onHide: function () {
-    console.log('onHide');
-  },
-  onUnload: function () {
-    console.log('onUnload');
-  },
-  onLaunch: function () {
-    console.log('onLaunch');
-  },
-  onError: function () {
-    console.log('onError');
-  },
-  onShow(){
-    console.log('onShow');
-    wx.getSetting({
-      success:res=>{
-        let auth=res.authSetting['scope.userLocation'];
-        if (auth && this.data.locationAuthType !== AUTHORIZED){
-          // 权限从无到有
-          this.setData({
-            locationAuthType: AUTHORIZED,
-            locationTips: AUTHORIZED_TIPS
-          })
+     wx.getSetting({
+       success:res=>{
+         let auth = res.authSetting['scope.userLocation'];
+        this.setData({
+          locationAuthType: auth ? AUTHORIZED : (auth === false) ? UNAUTHORIZED : UNPROMPTED
+        })
+        if(auth){
+          this.getCityAndWeather();
+        }else{
+          this.getNow();
         }
-        this.getLocation();
-      }
-    })
+       }
+     })
+     this.getNow();
+  },
+  // 下拉刷新
+  onPullDownRefresh() {
+    this.getNow(() => {
+      wx.stopPullDownRefresh();
+    });
   },
   getNow(callback){
     wx.request({
@@ -150,17 +126,27 @@ Page({
   getCurrentLocation(){
     if (this.data.locationAuthType===UNAUTHORIZED){
       // 开启位置权限
-      wx.openSetting();
+      wx.openSetting({
+        success:res=>{
+          let auth = res.authSetting['scope.userLocation'];
+          if (auth) {
+            // 权限从无到有
+            this.setData({
+              locationAuthType: AUTHORIZED
+            })
+          }
+          this.getCityAndWeather();
+        }
+      })
     }else
       // 获取当前位置
-      this.getLocation()
+      this.getCityAndWeather()
     },
-  getLocation(){
+  getCityAndWeather(){
      wx.getLocation({
       success: (res)=> {
         this.setData({
-          locationAuthType: AUTHORIZED,
-          locationTips: AUTHORIZED_TIPS
+          locationAuthType: AUTHORIZED
         })
         let latitude= res.latitude;
         let longitude=res.longitude;
@@ -173,16 +159,14 @@ Page({
           success: res => {
             let city = res.result.address_component.city;
             this.setData({
-              city:city,
-              locationTips:''
+              city:city
             }); 
           }
         });
       },
       fail:()=>{
         this.setData({
-          locationAuthType: UNAUTHORIZED,
-          locationTips: UNAUTHORIZED_TIPS
+          locationAuthType: UNAUTHORIZED
         })
       }
      })
