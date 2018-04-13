@@ -1,7 +1,32 @@
 .weather-wrapper{
-  padding-top:174rpx;
+  padding-top:20rpx;
   padding-bottom: 250rpx;
   position:relative;
+}
+/*位置  */
+.location-wrapper{
+  margin-bottom: 60rpx;
+  font-size: 30rpx;
+  line-height: 42rpx;
+}
+.location{
+  display: flex;
+  align-items: center;
+  justify-content:center;
+}
+.location-test{
+  opacity: 0.5;
+}
+.location-tips{
+  text-align: center;
+  margin-top:10rpx;
+  opacity: 0.5;
+  height:42rpx;
+}
+.location-icon{
+  margin-right:10rpx;
+  width:21rpx;
+  height:30rpx;
 }
 .temp{
   text-align: center;

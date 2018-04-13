@@ -9,11 +9,34 @@ const weatherDayMap={
 }
 Page({
   data:{
-    futureWeather:''
+    futureWeather:'',
+    city:'上海市'
   },
-  onLoad(){
+  onLoad(options){
+    console.log('onLoad');
+    this.setData({
+      city:options.city
+    })
     this.getWeekWeather();
   },
+  onShow: function () { 
+    console.log('onShow');
+  }, 
+  onReady: function () {
+    console.log('onReady');
+   }, 
+  onHide: function () {
+    console.log('onHide');
+   }, 
+  onUnload: function () { 
+    console.log('onUnload');
+  }, 
+  onLaunch: function () { 
+    console.log('onLaunch');
+  }, 
+  onError: function () { 
+    console.log('onError');
+  }, 
   onPullDownRefrush(){
     this.getWeekWeather(()=>{
       wx.stopPullDownRefresh();
@@ -23,7 +46,7 @@ Page({
     wx.request({
       url: 'https://test-miniprogram.com/api/weather/future',
       data: {
-        city: '广州市',
+        city: this.data.city,
         time: new Date().getTime()
       },
       header: {

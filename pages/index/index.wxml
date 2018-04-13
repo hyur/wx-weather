@@ -1,4 +1,11 @@
 <view class = "weather-wrapper">
+    <view class = "location-wrapper" bindtap="getCurrentLocation">
+      <view class = "location">
+        <image class = "location-icon" src = "/images/location-icon.png"></image>
+        <view class = "location-test">{{city}}</view>
+      </view>
+      <view class = "location-tips">{{locationTips}}</view>
+    </view>
     <view class = "temp">{{nowTemp}}℃</view>
     <view class = "weather">{{nowWeather}}</view>
     <image class = "weather-bg" src = "{{nowWeatherBg}}" mode = "scrollToFill"></image>
