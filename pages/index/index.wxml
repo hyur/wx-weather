@@ -1,0 +1,36 @@
+<view class = "weather-wrapper">
+    <view class = "location-wrapper" bindtap="getCurrentLocation">
+      <view class = "location">
+        <image class = "location-icon" src = "/images/location-icon.png"></image>
+        <view class = "location-test">{{city}}</view>
+      </view>
+      <view wx:if="{{locationAuthType===0}}" class = "location-tips">点击获取当前位置</view>
+      <view wx:if="{{locationAuthType===1}}" class = "location-tips">点击打开位置权限</view>
+      <view wx:if="{{locationAuthType===2}}" class = "location-tips"></view>
+    </view>
+    <view class = "temp">{{nowTemp}}℃</view>
+    <view class = "weather">{{nowWeather}}</view>
+    <image class = "weather-bg" src = "{{nowWeatherBg}}" mode = "scrollToFill"></image>
+     <view class = "day-weather" bindtap="onTapDayWeather">
+      <view class = "day-text">{{todayDate}}</view>
+      <view class = "temp-text">{{todayTemp}}</view>
+      <image class = "arrow-icon" src = "/images/arrow.png"></image>
+    </view> 
+</view>
+<view class = "timetips">
+    <image class = "timetips-icon" src = "/images/time-icon.png"></image>
+    <view class = "timetips-text">未来24小时天气预测</view>
+</view>
+
+ <scroll-view scroll-x> 
+ <view class="forecast_list" > 
+  <view class="forecast_item" wx:for="{{forecast}}" wx:key="id"> 
+    <view class = "forecast_item_time">{{item.timeValue}}</view>
+    <image class="forecast_item_img" src="/images/{{item.weather}}-icon.png"></image> 
+    <view class = "forecast_item_temp">{{item.temp}}°</view> 
+  </view> 
+ </view> 
+</scroll-view> 
+
+
+
